@@ -1,7 +1,7 @@
 import React from 'react'
 import Loading from '../components/Loading'
 import { useParams, Link } from 'react-router-dom'
-const url = 'www.thecocktaildb.com/api/json/v1/1/lookup.php?i='
+const url = 'www.thecocktaildb.com/api/json/v1/1/lookup.php?i=11007'
 
 const SingleCocktail = () => {
     const { id } = useParams()
@@ -12,7 +12,9 @@ const SingleCocktail = () => {
         setLoading(true)
         async function getCocktail() {
             try {
-                const response = await fetch(`${url}${id}`)
+                const response = await fetch(
+                    `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
+                )
                 const data = await response.json()
                 if (data.drinks) {
                     const {
@@ -72,31 +74,29 @@ const SingleCocktail = () => {
             <h2 className='section-title'>{name}</h2>
             <div className='drink'>
                 <img src={image} alt={name} />
-            <div className="drink-info">
-                <p>
-                    <span className='drink-data'>name:</span>{name}
-                </p>
-                <p>
-                    <span className='drink-data'>category:</span>{category}
-                </p>
-                <p>
-                    <span className='drink-data'>info:</span>{info}
-                </p>
-                <p>
-                    <span className='drink-data'>glass:</span>{glass}
-                </p>
-                <p>
-                    <span className='drink-data'>instruction:</span>{instruction}
-                </p>
-                <p>
-                    <span className='drink-data'>ingredients:</span>
-                    {
-                        ingredients.map((item, index) => {
+                <div className="drink-info">
+                    <p>
+                        <span className='drink-data'>name:</span>{name}
+                    </p>
+                    <p>
+                        <span className='drink-data'>category:</span>{category}
+                    </p>
+                    <p>
+                        <span className='drink-data'>info:</span>{info}
+                    </p>
+                    <p>
+                        <span className='drink-data'>glass:</span>{glass}
+                    </p>
+                    <p>
+                        <span className='drink-data'>instruction:</span>{instruction}
+                    </p>
+                    <p>
+                        <span className='drink-data'>ingredients:</span>
+                        {ingredients.map((item, index) => {
                             return item ? <span key={index}>{item}</span> : null
-                        })
-                    }
-                </p>
-            </div>
+                        })}
+                    </p>
+                </div>
             </div>
         </section>
     )
